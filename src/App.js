@@ -1,24 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import QUOTES from "./quotes";
 
 function App() {
+  // css styling
+  let [quotes, sortQuotes] = useState(QUOTES);
+  let [idx, incrementIdx] = useState(0);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="background">
+      <div id="quote-box">
+        <div id="text">
+          <blockquote className="blockquote">
+            <p>"{quotes[idx].text}"</p>
+          </blockquote>
+        </div>
+        <div id="author-row">
+          <div id="author">
+            <em>- {quotes[idx].author}</em>
+          </div>
+        </div>
+        <div id="button-row">
+          <a
+            href={`https://twitter.com/intent/tweet/?text=${quotes[idx].text} - ${quotes[idx].author}`}
+            className="btn btn-primary"
+            id="tweet-quote"
+            target="_blank"
+          >
+            Tweet!
+          </a>
+          <button
+            onClick={() => incrementIdx(idx < quotes.length - 1 ? idx + 1 : 0)}
+            className="btn btn-primary"
+            id="new-quote"
+          >
+            Next Quote
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
